@@ -180,7 +180,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 overflow-hidden">
+    <div className="lg:min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 lg:overflow-y-hidden overflow-x-hidden">
       {/* Header */}
       <header className="border-b bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto p-4 flex items-center justify-between">
@@ -230,7 +230,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="container mx-auto p-4 pt-6 fixed left-1/2 transform -translate-x-1/2  ">
+      <main className="container mx-auto p-4 pt-6 lg:fixed left-1/2 transform lg:-translate-x-1/2  ">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
           {/* Question Panel */}
           <div className="flex flex-col gap-4 ">
