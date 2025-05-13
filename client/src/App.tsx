@@ -79,7 +79,7 @@ export default function App() {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const formatTime = (seconds: number) => {
@@ -104,7 +104,7 @@ export default function App() {
     }, 50)
 
     try {
-      const result = await fetch("http://localhost:4000/run", {
+      const result = await fetch("https://preparrr-run-server.vercel.app/run", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
