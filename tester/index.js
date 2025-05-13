@@ -8,26 +8,30 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/run", (req, res) => {
-  const { code, input, answer } = req.body;
+  const { code, testCases } = req.body;
 
   try {
-    const vm = new VM({
-      timeout: 1000,
-      sandbox: { input }
-    });
+    for (const testCase of testCases) {
+      const { input, output } = testCase;
 
-    const wrappedCode = `
-      const solve = ${code};
-      solve(input);
-    `;
+      // Create a new VM instance for each test case
+      const vm = new VM({
+        timeout: 1000,
+        sandbox: { input }
+      });
 
-    const output = vm.run(wrappedCode);
-    if (output == answer) {
-      return res.json({ success: true, output, message: "Output matches the expected answer" });
+      const wrappedCode = `
+        const solve = ${code};
+        solve(input);
+      `;
+
+      const result = vm.run(wrappedCode);
+      if (result !== output) {
+        return res.json({ success: false, message: "Output does not match the expected answer", result });
+      }
     }
-    else {
-      return res.json({ success: false, message: "Output does not match the expected answer", output });
-    }
+    // If all test cases pass, return success
+    return res.json({ success: true, message: "All test cases passed" });
   } catch (err) {
     res.json({ success: false, message: err.message });
   }

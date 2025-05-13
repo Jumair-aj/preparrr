@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Editor from "@monaco-editor/react"
-import { questions } from "./data"
+import { questions, type Question } from "./data"
 import { useTheme } from "./context/theme-context"
 import { Button } from "./components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card"
@@ -41,10 +41,10 @@ export default function App() {
   const [timer, setTimer] = useState(0)
   const [timerActive, setTimerActive] = useState(false)
 
-  const question = questions[currentQuestionIndex]
+  const question: Question = questions[currentQuestionIndex]
 
   useEffect(() => {
-    let interval: number | undefined = undefined
+    let interval: NodeJS.Timeout | undefined = undefined
 
     if (timerActive) {
       interval = setInterval(() => {
@@ -108,7 +108,7 @@ export default function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ code, input: 'hello', answer: 'olleh' }),
+        body: JSON.stringify({ code, testCases: question.testCases }),
       })
       const data = await result.json()
       if (!result.ok) {
@@ -320,8 +320,8 @@ export default function App() {
           </div>
 
           {/* Code Editor Panel */}
-          <div>
-            <Card className="border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden p-0 gap-0">
+          <div className="flex flex-col gap-4 max-h-[80vh] h-full">
+            <Card className="border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden p-0 gap-0 h-fit">
               <CardHeader className="pb-[8px!important] pt-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg flex items-center gap-2 text-slate-800 dark:text-slate-200">
@@ -354,7 +354,7 @@ export default function App() {
                   </div>
                 )}
                 <Editor
-                  height={result ? "40vh" : "70vh"}
+                  height={result ? "100%" : "70vh"}
                   language="javascript"
                   value={code}
                   onChange={(value) => setCode(value || "")}
@@ -390,7 +390,7 @@ export default function App() {
             {result && (
               <Alert
                 variant={result.success ? "default" : "destructive"}
-                className={`border ${result.success ? "border-emerald-200 bg-emerald-50 dark:border-emerald-900 dark:bg-emerald-950/50" : "border-rose-200 bg-rose-50 dark:border-rose-900 dark:bg-rose-950/50"}`}
+                className={`border h-max ${result.success ? "border-emerald-200 bg-emerald-50 dark:border-emerald-900 dark:bg-emerald-950/50" : "border-rose-200 bg-rose-50 dark:border-rose-900 dark:bg-rose-950/50"}`}
               >
                 <div className="flex items-center gap-2">
                   {result.success ? (
@@ -413,7 +413,7 @@ export default function App() {
                 </AlertDescription>
 
                 {result.success && result.stats && (
-                  <div className="mt-3 pt-3 border-t border-emerald-200 dark:border-emerald-800 grid grid-cols-2 gap-2 text-sm">
+                  <div className="mt-3 pt-3 border-t border-emerald-200 dark:border-emerald-800 flex  gap-2 text-sm ">
                     <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400">
                       <Clock className="h-4 w-4" />
                       <span>Runtime: {result.stats.time}</span>
