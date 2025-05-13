@@ -216,10 +216,10 @@ export default function App() {
                 <span className="hidden sm:inline">Bookmark</span>
               </Button>
 
-              <Button variant="ghost" size="sm" className="gap-1">
+              {/* <Button variant="ghost" size="sm" className="gap-1">
                 <Lightbulb className="h-4 w-4" />
                 <span className="hidden sm:inline">Hint</span>
-              </Button>
+              </Button> */}
             </div>
             <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
               <Clock className="h-4 w-4" />
