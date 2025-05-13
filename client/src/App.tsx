@@ -79,6 +79,7 @@ export default function App() {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const formatTime = (seconds: number) => {

@@ -1,4 +1,3 @@
-import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { useTheme } from "../context/theme-context"
 import { Button } from "../components/ui/button"
